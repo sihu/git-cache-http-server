@@ -111,7 +111,7 @@ Main.authenticate = function(params,infos,callback) {
 };
 Main.update = function(remote,local,infos,callback) {
 	var _this = Main.updatePromises;
-	if(!(__map_reserved[local] != null ? _this.existsReserved(local) : _this.h.hasOwnProperty(local))) {
+	if(!(!__map_reserved[local] ? _this.existsReserved(local) : _this.h.hasOwnProperty(local))) {
 		var this1 = Main.updatePromises;
 		var v = new Promise(function(resolve,reject) {
 			console.log("INFO: updating: fetching from " + infos);
@@ -144,7 +144,7 @@ Main.update = function(remote,local,infos,callback) {
 			return Promise.reject(err);
 		});
 		var _this1 = this1;
-		if(__map_reserved[local] != null) {
+		if(!__map_reserved[local]) {
 			_this1.setReserved(local,v);
 		} else {
 			_this1.h[local] = v;
@@ -153,7 +153,7 @@ Main.update = function(remote,local,infos,callback) {
 		console.log("INFO: reusing existing promise");
 	}
 	var _this2 = Main.updatePromises;
-	return (__map_reserved[local] != null ? _this2.getReserved(local) : _this2.h[local]).then(function(nothing) {
+	return (!__map_reserved[local] ? _this2.getReserved(local) : _this2.h[local]).then(function(nothing) {
 		console.log("INFO: promise fulfilled");
 		callback(null);
 	},function(err1) {
